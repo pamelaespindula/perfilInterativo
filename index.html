@@ -1,59 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UFT-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Interativo</title>
-    <link href="https://cdn.jsdelivr.net/npmlbootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Configuração básica da página -->
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a página para ser responsiva -->
+    <title>Perfil Interativo</title> <!-- Título da página -->
+
+    <!-- Link para o CSS do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
 
-<div class="container mt-5">
-    <div class="card" id="profileCard">
-        <div class="card-body text-center">
-            <img src="https://via.placeholder,com/150" alt="Imagem de Perfil" id="profileImage" class="rounded-circle mb-3" style="width: 150px;">
-            <h3 id="profileName">Nome: Meu Perfil</h3>
-            <p id="profileAge">Idade: 18</p>
+<body class="bg-light"> <!-- Define a cor de fundo clara para o corpo -->
 
-            <h5>Hobbies:</h5>
-            <ul id="hobbiesList" class="list-group mb-3">
-                <li class="list-group-item">Literatura</li>
-                <li class="list-group-item">Esportes</li>
-                <li class="list-group-item">Músicas</li>
-            </ul>
+    <!-- Container principal -->
+    <div class="container mt-5">
+        <!-- Card que contém o perfil -->
+        <div class="card" id="profileCard">
+            <div class="card-body text-center">
+                <!-- Imagem de perfil -->
+                <img src="https://media.gettyimages.com/id/2184854372/pt/foto/miami-florida-editorial-use-only-emilia-mernes-attends-the-25th-annual-latin-grammy-awards-at.jpg?s=612x612&w=gi&k=20&c=1xpdWVqU_XGLl1aJQlbwuYqPqIc_YGYf4yLi7Zc2or8="
+                    alt="Imagem de Perfil" id="profileImage" class="rounded-circle mb-3" style="width: 150px;">
 
+                <!-- Nome e idade do perfil -->
+                <h3 id="profileName">Nome: María Emilia Mernes Rueda</h3>
+                <p id="profileAge">Idade: 28</p>
+
+                <!-- Lista de hobbies -->
+                <h5>Hobbies:</h5>
+                <ul id="hobbiesList" class="list-group mb-3">
+                    <!-- Cada hobby tem um botão "Excluir" associado -->
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Ser linda
+                        <button class="btn btn-danger btn-sm" onclick="excluirHobby(this)">Excluir</button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Ser diva
+                        <button class="btn btn-danger btn-sm" onclick="excluirHobby(this)">Excluir</button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Arrasar
+                        <button class="btn btn-danger btn-sm" onclick="excluirHobby(this)">Excluir</button>
+                    </li>
+                </ul>
+
+                <!-- Botões de interação -->
                 <button class="btn btn-primary me-2" onclick="alterarNome()">Alterar nome</button>
-                <button class="btn btn-seccess me-2" onclick="adicionarHobby()">Adicionar hobby</button>
+                <button class="btn btn-success me-2" onclick="adicionarHobby()">Adicionar hobby</button>
                 <button class="btn btn-warning me-2" onclick="mudarCorDeFundo()">Mudar cor de fundo</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    function alterarNome() {
-        const novoNome = prompt("Digite o novo nome:");
-        if(novoNome) {
-            document.getElementById("profileName").textContent = "Nome: " + novoNome;
+    <!-- Scripts de interação -->
+    <script>
+        // Função para alterar o nome do perfil
+        function alterarNome() {
+            const novoNome = prompt("Digite o novo nome:"); // Solicita um novo nome
+            if (novoNome) {
+                document.getElementById("profileName").textContent = "Nome: " + novoNome; // Atualiza o nome no HTML
+            }
         }
-    }
 
-    function adicionarHobby() {
-        const novoHobby = prompt("Digite um novo hobby:");
-        if (novoHobby) {
-            const li = document.createElement("li");
-            li.textContent = novoHobby;
-            list.className = "list-group-item";
-            document.getElementById("hobbiesList").appendChild(li);
+        // Função para adicionar um novo hobby
+        function adicionarHobby() {
+            const novoHobby = prompt("Digite um novo hobby:"); // Solicita um novo hobby
+            if (novoHobby) {
+                const li = document.createElement("li"); // Cria um novo elemento de lista
+                li.className = "list-group-item d-flex justify-content-between align-items-center"; // Adiciona classes do Bootstrap para estilo
+                li.innerHTML = `
+                ${novoHobby} <!-- Adiciona o nome do hobby -->
+                <button class="btn btn-danger btn-sm" onclick="excluirHobby(this)">Excluir</button> <!-- Botão para excluir o hobby -->
+            `;
+                document.getElementById("hobbiesList").appendChild(li); // Adiciona o novo hobby à lista
+            }
         }
-    }
 
-    function mudarCorDeFundo() {
-        const cores = ["#f8d7da, #d1ecf1, #d4edda, #fff3cd, #cce5ff"];
-        const corAleatoria = cores[Math.floor(Math.random() * cores.length)];
-        document.getElementById("profileCard").style.backgroundColor = corAleatoria;
-    }
-</script>
+        // Função para excluir um hobby
+        function excluirHobby(botao) {
+            const li = botao.parentElement; // Encontra o elemento pai do botão (o <li>)
+            li.remove(); // Remove o item da lista
+        }
 
-<script src="htpps://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        // Função para mudar a cor de fundo do card
+        function mudarCorDeFundo() {
+            const cores = ["#f8d7da", "#d1ecf1", "#d4edda", "#fff3cd", "#cce5ff"]; // Paleta de cores
+            const corAleatoria = cores[Math.floor(Math.random() * cores.length)]; // Seleciona uma cor aleatória
+            document.getElementById("profileCard").style.backgroundColor = corAleatoria; // Aplica a nova cor ao card
+        }
+    </script>
+
+    <!-- Script do Bootstrap para funcionalidades interativas -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
